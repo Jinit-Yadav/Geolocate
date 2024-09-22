@@ -33,6 +33,16 @@
       font-size: 18px;
       color: #333;
     }
+    #map-link {
+      margin-top: 20px;
+      display: block;
+      font-size: 18px;
+      color: #007bff;
+      text-decoration: none;
+      padding: 10px;
+      border: 1px solid #007bff;
+      border-radius: 5px;
+    }
     button {
       padding: 10px 20px;
       background-color: #007bff;
@@ -53,6 +63,7 @@
   <p>Click the button to get your current location.</p>
   <button onclick="getLocation()">Get Location</button>
   <div id="location"></div>
+  <a id="map-link" target="_blank" style="display:none;">View on Google Maps</a>
 </div>
 
 <script>
@@ -65,9 +76,16 @@
   }
 
   function showPosition(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
     document.getElementById("location").innerHTML = 
-      "Latitude: " + position.coords.latitude + 
-      "<br>Longitude: " + position.coords.longitude;
+      "Latitude: " + latitude + "<br>Longitude: " + longitude;
+    
+    // Create Google Maps link
+    const mapLink = https://www.google.com/maps?q=${latitude},${longitude};
+    document.getElementById("map-link").href = mapLink;
+    document.getElementById("map-link").style.display = "block"; // Show the link
+    document.getElementById("map-link").innerText = "View on Google Maps";
   }
 
   function showError(error) {
