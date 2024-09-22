@@ -61,7 +61,9 @@
   <button onclick="getLocation()">Get Location</button>
   <div id="location"></div>
   <iframe id="map" style="display:none;"></iframe>
+<a id="map-link" target="_blank" style="display:none;">View on Google Maps</a>
 </div>
+
 
 <script>
   function getLocation() {
@@ -85,6 +87,12 @@
     const mapIframe = document.getElementById("map");
     mapIframe.src = mapSrc;
     mapIframe.style.display = "block"; // Show the iframe
+
+    // Create Google Maps link
+    const mapLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    document.getElementById("map-link").href = mapLink;
+    document.getElementById("map-link").style.display = "block"; // Show the link
+    document.getElementById("map-link").innerText = "View on Google Maps";
   }
 
   function showError(error) {
