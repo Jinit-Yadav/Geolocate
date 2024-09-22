@@ -33,16 +33,6 @@
       font-size: 18px;
       color: #333;
     }
-    #map-link {
-      margin-top: 20px;
-      display: block;
-      font-size: 18px;
-      color: #007bff;
-      text-decoration: none;
-      padding: 10px;
-      border: 1px solid #007bff;
-      border-radius: 5px;
-    }
     button {
       padding: 10px 20px;
       background-color: #007bff;
@@ -54,6 +44,13 @@
     button:hover {
       background-color: #0056b3;
     }
+    #map {
+      margin-top: 20px;
+      width: 100%;
+      height: 300px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -63,7 +60,7 @@
   <p>Click the button to get your current location.</p>
   <button onclick="getLocation()">Get Location</button>
   <div id="location"></div>
-  <a id="map-link" target="_blank" style="display:none;">View on Google Maps</a>
+  <iframe id="map" style="display:none;"></iframe>
 </div>
 
 <script>
@@ -81,11 +78,13 @@
     document.getElementById("location").innerHTML = 
       "Latitude: " + latitude + "<br>Longitude: " + longitude;
     
-    // Create Google Maps link
-    const mapLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
-    document.getElementById("map-link").href = mapLink;
-    document.getElementById("map-link").style.display = "block"; // Show the link
-    document.getElementById("map-link").innerText = "View on Google Maps";
+    // Create OpenStreetMap link
+    const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${longitude - 0.01}%2C${latitude - 0.01}%2C${longitude + 0.01}%2C${latitude + 0.01}&layer=mapnik&marker=${latitude}%2C${longitude}`;
+    
+    // Display the map in the iframe
+    const mapIframe = document.getElementById("map");
+    mapIframe.src = mapSrc;
+    mapIframe.style.display = "block"; // Show the iframe
   }
 
   function showError(error) {
